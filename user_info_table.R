@@ -64,7 +64,11 @@ parse_wa_chat <- function(x){
 #this function generates a table from the parsed data with some stats about each user
 #note that some people changed their phone numbers or usernames so date.joined may be NA
 generate_user_info_table <- function(x){
-  
+
+  list <- parse_wa_chat(x)
+  notifications <- list$notifications
+  messages <- list$messages
+
   #first we will make a list of all users who have left or been removed since the creation of the group and the date they last left
   left <- str_match(notifications, pattern=".(.+) heeft de groep verlaten")
   left <- data.frame(date=names(notifications), user=str_trim(left[,2])) %>% na.omit()
